@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abignals <abignals@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,9 @@
 
 #include "../inc/AForm.hpp"
 
-Form::Form() : _name("Random Form"), _isSigned(false), _toSign(150), _toExec(150) {}
+AForm::AForm() : _name("Random AForm"), _isSigned(false), _toSign(150), _toExec(150) {}
 
-Form::Form(std::string name, int toSign, int toExec) :
+AForm::AForm(std::string name, int toSign, int toExec) :
 _name(name), _isSigned(false), _toSign(toSign), _toExec(toExec)
 {
     if (toSign > 150 || toExec > 150)
@@ -23,10 +23,10 @@ _name(name), _isSigned(false), _toSign(toSign), _toExec(toExec)
         throw GradeTooHighException();
 }
 
-Form::Form(const Form& src) : _name(src._name), _isSigned(src._isSigned), _toSign(src._toSign), _toExec(src._toExec) 
+AForm::AForm(const AForm& src) : _name(src._name), _isSigned(src._isSigned), _toSign(src._toSign), _toExec(src._toExec) 
 {}
 
-Form& Form::operator=(const Form&src)
+AForm& AForm::operator=(const AForm&src)
 {
     if (this != &src)
     {
@@ -35,29 +35,29 @@ Form& Form::operator=(const Form&src)
     return (*this);
 }
 
-Form::~Form() {};
+AForm::~AForm() {};
 
-std::string Form::getName() const
+std::string AForm::getName() const
 {
     return this->_name;
 }
 
-bool Form::getSigned() const
+bool AForm::getSigned() const
 {
     return this->_isSigned;
 }
 
-int Form::getToExec() const 
+int AForm::getToExec() const 
 {
     return this->_toExec;
 }
 
-int Form::getToSign() const 
+int AForm::getToSign() const 
 {
     return this->_toSign;
 }
 
-void Form::beSigned(const Bureaucrat& Bur)
+void AForm::beSigned(const Bureaucrat& Bur)
 {
     if (this->_isSigned == true)
         throw AlreadySignedException();
@@ -66,12 +66,20 @@ void Form::beSigned(const Bureaucrat& Bur)
     else
         this->_isSigned = true;
 }
-std::ostream& operator<<(std::ostream& os, const Form& src)
+std::ostream& operator<<(std::ostream& os, const AForm& src)
 {
     if (src.getSigned() == true)
         std::cout << "This form name is " << src.getName() << " it is signed, required " << src.getToSign() << " to be signed and " << src.getToExec() << "to be executed" << std::endl;
     else
         std::cout << "This form name is " << src.getName() << " isn't signed, require " << src.getToSign() << " to be signed and " << src.getToExec() << "to be executed" << std::endl;
     return (os);
+}
+
+void AForm::checkSignAndGrade(const Bureaucrat& executor, int ToExec) const
+{
+    if (_isSigned == false)
+        throw NotSignedException();
+    if (executor.getGrade() > ToExec)
+        throw GradeTooLowException();
 }
 
