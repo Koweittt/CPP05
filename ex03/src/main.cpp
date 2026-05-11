@@ -3,135 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abignals <abignals@student.42.fr>          +#+  +:+       +#+        */
+/*   By: koweit <koweit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/10 18:58:16 by abignals          #+#    #+#             */
-/*   Updated: 2026/04/15 15:26:56 by abignals         ###   ########.fr       */
+/*   Created: 2026/01/30 00:07:06 by abignals          #+#    #+#             */
+/*   Updated: 2026/05/11 15:48:31 by koweit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
+#include "../inc/Intern.hpp"
 #include "../inc/Bureaucrat.hpp"
 #include "../inc/PresidentialPardonForm.hpp"
 #include "../inc/ShrubberyCreationForm.hpp"
 #include "../inc/RobotomyRequestForm.hpp"
 #include <ctime>
 
-int main(void)
-{
+int main() {
     std::srand(std::time(NULL));
 
-    std::cout << "Test for PresidentialPardonForm" << std::endl; 
+    std::cout << "Test for Intern making PresidentialPardonForm\n" << std::endl; 
     try
     {
-       PresidentialPardonForm A;
-       Bureaucrat B(150, "B");
-       std::cout << "First test Bureaucrat too low grade, can't sign supposed to throw exception : ";
-       B.signForm(A);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << "Test with a non-signed Form" << std::endl;
-    try
-    {
-       PresidentialPardonForm A;
+       Intern someRandomIntern;
        Bureaucrat B(1, "B");
-       std::cout << "Can't execute because not signed, supposed to throw exception : ";
-       B.executeForm(A);
+       AForm* rrf = someRandomIntern.makeForm("presidential pardon", "Bender");
+       
+       if (rrf)
+       {
+           B.signForm(*rrf);
+           B.executeForm(*rrf);
+           delete rrf;
+       }
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
-    try
-    {
-       PresidentialPardonForm A;
-       Bureaucrat B(1, "B");
-       std::cout << "Supposed to work : " << std::endl;
-       B.signForm(A);
-       B.executeForm(A);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    ///////////////////////////////////////////////////
-    std::cout << std::endl;
+    
+    std::cout << "\n------------------------------------------------\n\n";
 
-    std::cout << "Test for RobotomyRequestForm" << std::endl; 
+    std::cout << "Test for Intern making RobotomyRequestForm\n" << std::endl; 
     try
     {
-       RobotomyRequestForm A;
-       Bureaucrat B(150, "B");
-       std::cout << "First test Bureaucrat too low grade, can't sign supposed to throw exception : ";
-       B.signForm(A);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << "Test with a non-signed Form" << std::endl;
-    try
-    {
-       RobotomyRequestForm A;
+       Intern someRandomIntern;
        Bureaucrat B(1, "B");
-       std::cout << "Can't execute because not signed, supposed to throw exception : ";
-       B.executeForm(A);
+       AForm* rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+       
+       if (rrf)
+       {
+           B.signForm(*rrf);
+           B.executeForm(*rrf);
+           delete rrf;
+       }
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
-    try
-    {
-       RobotomyRequestForm A;
-       Bureaucrat B(1, "B");
-       std::cout << "Supposed to work : " << std::endl;
-       B.signForm(A);
-       B.executeForm(A);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    ////////////////////////////////////////////
-    std::cout << std::endl;
 
-    std::cout << "Test for ShrubberyCreationForm" << std::endl; 
+    std::cout << "\n------------------------------------------------\n\n";
+
+    std::cout << "Test for Intern making ShrubberyCreationForm\n" << std::endl; 
     try
     {
-       ShrubberyCreationForm A;
-       Bureaucrat B(150, "B");
-       std::cout << "First test Bureaucrat too low grade, can't sign supposed to throw exception : ";
-       B.signForm(A);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << "Test with a non-signed Form" << std::endl;
-    try
-    {
-       ShrubberyCreationForm A;
+       Intern someRandomIntern;
        Bureaucrat B(1, "B");
-       std::cout << "Can't execute because not signed, supposed to throw exception : ";
-       B.executeForm(A);
+       AForm* rrf = someRandomIntern.makeForm("shrubbery creation", "Garden");
+       
+       if (rrf)
+       {
+           B.signForm(*rrf);
+           B.executeForm(*rrf);
+           delete rrf;
+       }
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
+
+    std::cout << "\n------------------------------------------------\n\n";
+
+    std::cout << "Test for Intern making Unknown Form\n" << std::endl; 
     try
     {
-       ShrubberyCreationForm A;
+       Intern someRandomIntern;
        Bureaucrat B(1, "B");
-       std::cout << "Supposed to work : " << std::endl;
-       B.signForm(A);
-       B.executeForm(A);
+       std::cout << "Supposed to print an error : ";
+       AForm* rrf = someRandomIntern.makeForm("some random form", "Target");
+       
+       if (rrf)
+       {
+           B.signForm(*rrf);
+           B.executeForm(*rrf);
+           delete rrf;
+       }
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
+
+    return 0;
 }

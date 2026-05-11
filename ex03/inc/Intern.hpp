@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abignals <abignals@student.42.fr>          +#+  +:+       +#+        */
+/*   By: koweit <koweit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:49:57 by abignals          #+#    #+#             */
-/*   Updated: 2026/04/15 16:03:05 by abignals         ###   ########.fr       */
+/*   Updated: 2026/05/11 15:48:04 by koweit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,19 @@
 
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
 
 class Intern
 {
-    private:
-        Intern();
-        ~Intern();
-
     public:
+        Intern();
+        Intern(const Intern& src);
+        Intern& operator=(const Intern& src);
+        ~Intern();
+        
         AForm* makeForm(const std::string formName, const std::string other) const;
-
-        class NameNotFoundException : public std::exception
-        {
-            const char * what() const throw()
-            {
-                return ("Form name not found");
-            }
-        };
 };
 
 #endif //INTERN_HPP
